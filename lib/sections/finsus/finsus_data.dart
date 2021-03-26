@@ -266,69 +266,67 @@ final movements = [
 */
 
 const investments = [
-  [
-    {
-      "index": 1,
-      "id": "605abd85e4c73c4b0863ccb2",
-      "value": 2000,
-      "name": "aliqua",
-      "interest_rate": 0.11,
-      "date": "22-12-2020",
-      "expiration_time": 60
-    },
-    {
-      "index": 2,
-      "id": "605abd858ef117c89fe70bc4",
-      "value": 5000,
-      "name": "dolor",
-      "interest_rate": 0.12,
-      "date": "27-09-2020",
-      "expiration_time": 360
-    },
-    {
-      "index": 3,
-      "id": "605abd857b01c0671c0e5696",
-      "value": 100,
-      "name": "reprehenderit ipsum eiusmod",
-      "interest_rate": 0.11,
-      "date": "25-11-2020",
-      "expiration_time": 180
-    },
-    {
-      "index": 4,
-      "id": "605abd85b6da859761307f8f",
-      "value": 3000,
-      "name": "voluptate laboris mollit",
-      "interest_rate": 0.05,
-      "date": "31-07-2020",
-      "expiration_time": 90
-    },
-    {
-      "index": 5,
-      "id": "605abd8595a231b335021f8a",
-      "value": 2000,
-      "name": "duis et incididunt",
-      "interest_rate": 0.12,
-      "date": "26-01-2021",
-      "expiration_time": 60
-    },
-    {
-      "index": 6,
-      "id": "605abd85253c9ceb385f2544",
-      "value": 6000,
-      "name": "commodo do reprehenderit",
-      "interest_rate": 0.075,
-      "date": "11-08-2020",
-      "expiration_time": 30
-    },
-    {
-      "index": 7,
-      "id": "605abd8534bdc574311e874d",
-      "value": 5000,
-      "name": "ex",
-      "interest_rate": 0.11,
-      "date": "07-03-2021",
-      "expiration_time": 30
-    }
-  ]
+  {
+    "index": 1,
+    "id": "605abd85e4c73c4b0863ccb2",
+    "value": 2000,
+    "name": "aliqua",
+    "interest_rate": 0.11,
+    "date": "22-12-2020",
+    "expiration_time": 60
+  },
+  {
+    "index": 2,
+    "id": "605abd858ef117c89fe70bc4",
+    "value": 5000,
+    "name": "dolor",
+    "interest_rate": 0.12,
+    "date": "27-09-2020",
+    "expiration_time": 360
+  },
+  {
+    "index": 3,
+    "id": "605abd857b01c0671c0e5696",
+    "value": 100,
+    "name": "reprehenderit ipsum eiusmod",
+    "interest_rate": 0.11,
+    "date": "25-11-2020",
+    "expiration_time": 180
+  },
+  {
+    "index": 4,
+    "id": "605abd85b6da859761307f8f",
+    "value": 3000,
+    "name": "voluptate laboris mollit",
+    "interest_rate": 0.05,
+    "date": "31-07-2020",
+    "expiration_time": 90
+  },
+  {
+    "index": 5,
+    "id": "605abd8595a231b335021f8a",
+    "value": 2000,
+    "name": "duis et incididunt",
+    "interest_rate": 0.12,
+    "date": "26-01-2021",
+    "expiration_time": 60
+  },
+  {
+    "index": 6,
+    "id": "605abd85253c9ceb385f2544",
+    "value": 6000,
+    "name": "commodo do reprehenderit",
+    "interest_rate": 0.075,
+    "date": "11-08-2020",
+    "expiration_time": 30
+  },
+  {
+    "index": 7,
+    "id": "605abd8534bdc574311e874d",
+    "value": 5000,
+    "name": "ex",
+    "interest_rate": 0.11,
+    "date": "07-03-2021",
+    "expiration_time": 30
+  }
 ];
