@@ -25,8 +25,8 @@ class _SavingsPageState extends State<SavingsPage> {
   }
 
   calculateAvailableMoney() {
-    double entries = 0;
-    double payments = 0;
+    double entries = 10;
+    double payments = 10;
 
     movementsList.forEach((element) {
       if (element["type"] == "entry") {
@@ -42,7 +42,7 @@ class _SavingsPageState extends State<SavingsPage> {
       available = entries - payments;
     });
 
-    Timer(Duration(milliseconds: 500), () => calculateSize());
+    Timer(Duration(milliseconds: 200), () => calculateSize());
   }
 
   calculateSize() {
@@ -62,10 +62,8 @@ class _SavingsPageState extends State<SavingsPage> {
       entriesSize = maxSize * entriesPercent;
     }
 
-    if (totalPayments == 0 && totalEntries == 0) {
-      entriesSize = 0;
-      paymentsSize = 0;
-    }
+    if (totalEntries == 0) entriesSize = 5;
+    if (totalPayments == 0) paymentsSize = 5;
 
     setState(() {
       entriesBarSize = entriesSize;
@@ -76,69 +74,187 @@ class _SavingsPageState extends State<SavingsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-      children: [
-        Container(
-          // color: Colors.indigo,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.width * 0.1,
+          bottom: MediaQuery.of(context).size.width * 0.8),
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        margin: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.1),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                hideShowValue(available, showValues),
-                style: TextStyle(fontSize: 21.0, color: Colors.blueGrey[900]),
-                textAlign: TextAlign.center,
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.remove_red_eye_rounded,
-                  size: 18,
-                  color: Colors.grey,
+              Container(
+                // color: Colors.indigo,
+                child: Column(
+                  children: [
+                    Text(
+                      "Saldo actual",
+                      style: microTextStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          hideShowValue(available, showValues),
+                          style: TextStyle(
+                              fontSize: 21.0, color: Colors.blueGrey[900]),
+                          textAlign: TextAlign.center,
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.remove_red_eye_rounded,
+                            size: 18,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              showValues = !showValues;
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  setState(() {
-                    showValues = !showValues;
-                  });
-                },
+              ),
+              SizedBox(height: 15.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        hideShowValue(totalPayments, showValues),
+                        style: minTextStyle,
+                      ),
+                      animatedBar(paymentsBarSize),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Text(
+                        "Gastos del mes",
+                        style: microTextStyle,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        hideShowValue(totalEntries, showValues),
+                        style: minTextStyle,
+                      ),
+                      animatedBar(
+                        entriesBarSize,
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Text(
+                        "Abonos del mes",
+                        style: microTextStyle,
+                      ),
+                    ],
+                  )
+                ],
               )
             ],
           ),
         ),
-        SizedBox(height: 15.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Column(
-              children: [
-                Text(
-                  hideShowValue(totalPayments, showValues),
-                  style: minTextStyle,
-                ),
-                Text(
-                  "Gastos del mes",
-                  style: minTextStyle,
-                ),
-                animatedBar(paymentsBarSize)
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  hideShowValue(totalEntries, showValues),
-                  style: minTextStyle,
-                ),
-                Text(
-                  "Abonos del mes",
-                  style: minTextStyle,
-                ),
-                animatedBar(
-                  entriesBarSize,
-                )
-              ],
-            )
-          ],
-        )
-      ],
-    ));
+      ),
+    );
   }
 }
+
+/*
+
+  // width: MediaQuery.of(context).size.width * 0.8,
+      // padding: EdgeInsets.symmetric(
+      //     horizontal: MediaQuery.of(context).size.width * 0.1),
+      // height: 300.0,
+      // padding: EdgeInsets.symmetric(
+      // horizontal: MediaQuery.of(context).size.width * 0.1),
+
+*/
+
+/*
+
+Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Container(
+                //   // color: Colors.indigo,
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         hideShowValue(available, showValues),
+                //         style: TextStyle(
+                //             fontSize: 21.0, color: Colors.blueGrey[900]),
+                //         textAlign: TextAlign.center,
+                //       ),
+                //       IconButton(
+                //         icon: Icon(
+                //           Icons.remove_red_eye_rounded,
+                //           size: 18,
+                //           color: Colors.grey,
+                //         ),
+                //         onPressed: () {
+                //           setState(() {
+                //             showValues = !showValues;
+                //           });
+                //         },
+                //       )
+                //     ],
+                //   ),
+                // ),
+                SizedBox(height: 15.0),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   children: [
+                //     Column(
+                //       children: [
+                //         Text(
+                //           hideShowValue(totalPayments, showValues),
+                //           style: minTextStyle,
+                //         ),
+                //         Text(
+                //           "Gastos del mes",
+                //           style: minTextStyle,
+                //         ),
+                //         animatedBar(paymentsBarSize)
+                //       ],
+                //     ),
+                //     Column(
+                //       children: [
+                //         Text(
+                //           hideShowValue(totalEntries, showValues),
+                //           style: minTextStyle,
+                //         ),
+                //         Text(
+                //           "Abonos del mes",
+                //           style: minTextStyle,
+                //         ),
+                //         animatedBar(
+                //           entriesBarSize,
+                //         )
+                //       ],
+                //     )
+                //   ],
+                // )
+              ], */

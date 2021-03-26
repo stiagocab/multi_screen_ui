@@ -8,8 +8,23 @@ class FinsusPage extends StatefulWidget {
   _FinsusPageState createState() => _FinsusPageState();
 }
 
-class _FinsusPageState extends State<FinsusPage> {
+class _FinsusPageState extends State<FinsusPage>
+    with SingleTickerProviderStateMixin {
   String selectedRoute = "Ahorro";
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 2);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   final sites = [
     {
       "title": "Ahorro",
@@ -32,39 +47,15 @@ class _FinsusPageState extends State<FinsusPage> {
       child: Scaffold(
         appBar: AppBar(
           shadowColor: Colors.transparent,
-          backgroundColor: Color(0xFF0195CE),
+          backgroundColor: secondaryColor,
           centerTitle: true,
           title: Text("MIS CUENTAS"),
+          bottom: tapButtonGenerator(sites, _tabController),
         ),
-        body: SafeArea(
-          child: backgroundHomePage(
-            child: Card(
-              elevation: 2,
-              shadowColor: Colors.black,
-              child: Container(
-                // height: 300,
-                width: MediaQuery.of(context).size.width * 0.8,
-                // padding: EdgeInsets.all(5),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // TABS BUTTONS
-                    tapButtonGenerator(
-                      sites,
-                    ),
-                    // TABS SITES
-                    Container(
-                      height: 350,
-                      padding: EdgeInsets.all(10),
-                      child: TabBarView(
-                        children: [SavingsPage(), InvesmentsPage()],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            context: context,
+        body: Container(
+          child: TabBarView(
+            controller: _tabController,
+            children: [SavingsPage(), InvesmentsPage()],
           ),
         ),
       ),

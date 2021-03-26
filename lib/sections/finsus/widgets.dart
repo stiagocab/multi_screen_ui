@@ -3,7 +3,9 @@ import 'package:multi_ui/sections/finsus/investments_page.dart';
 import 'package:multi_ui/sections/finsus/savings_page.dart';
 
 final finsusColor = Color(0xFF0195CE);
-final lightFinsusColor = Color(0x000195CE);
+final secondaryColor = Color(0xFF0f93c5);
+final lightFinsusColor = Color(0xFF5689A4);
+final darkFinsusColor = Color(0xFF0068b1);
 
 Widget backgroundHomePage({Widget child, BuildContext context}) {
   return SafeArea(
@@ -11,16 +13,14 @@ Widget backgroundHomePage({Widget child, BuildContext context}) {
     children: [
       Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.15,
+        height: MediaQuery.of(context).size.height * 0.13,
         // margin: EdgeInsets.only(top: -100),
         decoration: BoxDecoration(
-            color: Color(0xFF0195CE),
+            // color: Color(0xFF0195CE),
             borderRadius: BorderRadius.only(
-              bottomLeft:
-                  Radius.circular(MediaQuery.of(context).size.width * 0.3),
-              bottomRight:
-                  Radius.circular(MediaQuery.of(context).size.width * 0.3),
-            )),
+          bottomLeft: Radius.circular(MediaQuery.of(context).size.width * 0.3),
+          bottomRight: Radius.circular(MediaQuery.of(context).size.width * 0.3),
+        )),
       ),
       Container(
         margin: EdgeInsets.only(
@@ -33,7 +33,7 @@ Widget backgroundHomePage({Widget child, BuildContext context}) {
   ));
 }
 
-Widget tapButtonGenerator(List tabs) {
+Widget tapButtonGenerator(List tabs, TabController tabController) {
   List<Widget> buttonElements = [];
 
   tabs.forEach((item) {
@@ -43,10 +43,12 @@ Widget tapButtonGenerator(List tabs) {
   });
 
   return TabBar(
+    controller: tabController,
     indicatorWeight: 3.0,
     tabs: buttonElements,
-    indicatorColor: finsusColor,
-    labelColor: finsusColor,
+    indicatorColor: Colors.white,
+    labelColor: Colors.white,
+    indicator: BoxDecoration(color: darkFinsusColor),
   );
 }
 
@@ -68,7 +70,8 @@ String hideShowValue(dynamic val, bool show, {String type = "money"}) {
   return "$val";
 }
 
-final minTextStyle = TextStyle(fontSize: 12, color: Colors.grey);
+final minTextStyle = TextStyle(fontSize: 13, color: Colors.black87);
+final microTextStyle = TextStyle(fontSize: 13, color: Colors.black54);
 
 Widget animatedBar(double size) {
   return Container(
@@ -80,9 +83,10 @@ Widget animatedBar(double size) {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         AnimatedContainer(
+          curve: Curves.decelerate,
           margin: EdgeInsets.only(top: 20),
-          duration: Duration(seconds: 1, milliseconds: 200),
-          color: finsusColor,
+          duration: Duration(milliseconds: 1000),
+          color: secondaryColor,
           width: 50.0,
           height: size,
           // child: Text("$size"),
