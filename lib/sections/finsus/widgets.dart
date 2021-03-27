@@ -5,6 +5,7 @@ import 'package:multi_ui/sections/finsus/savings_page.dart';
 final finsusColor = Color(0xFF0195CE);
 final secondaryColor = Color(0xFF0f93c5);
 final lightFinsusColor = Color(0xFF5689A4);
+final opacityFinsusColor = Color(0x05689A4);
 final darkFinsusColor = Color(0xFF0068b1);
 
 Widget backgroundHomePage({Widget child, BuildContext context}) {

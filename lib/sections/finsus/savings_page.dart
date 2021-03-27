@@ -76,20 +76,20 @@ class _SavingsPageState extends State<SavingsPage> {
     return Container(
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.width * 0.1,
-          bottom: MediaQuery.of(context).size.width * 0.8),
+          bottom: MediaQuery.of(context).size.width * 0.6),
       child: Container(
         padding: EdgeInsets.all(10.0),
         margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.1),
+            horizontal: MediaQuery.of(context).size.width * 0.05),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
-          color: Colors.white,
+          // color: Colors.white,ç
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
+              color: Colors.grey.withOpacity(0.0),
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: Offset(0, 1), // changes position of shadow
             ),
           ],
         ),
@@ -97,164 +97,180 @@ class _SavingsPageState extends State<SavingsPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                // color: Colors.indigo,
-                child: Column(
-                  children: [
-                    Text(
-                      "Saldo actual",
-                      style: microTextStyle,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          hideShowValue(available, showValues),
-                          style: TextStyle(
-                              fontSize: 21.0, color: Colors.blueGrey[900]),
-                          textAlign: TextAlign.center,
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.remove_red_eye_rounded,
-                            size: 18,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              showValues = !showValues;
-                            });
-                          },
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              renderCurrentValue(),
               SizedBox(height: 15.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        hideShowValue(totalPayments, showValues),
-                        style: minTextStyle,
-                      ),
-                      animatedBar(paymentsBarSize),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Text(
-                        "Gastos del mes",
-                        style: microTextStyle,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        hideShowValue(totalEntries, showValues),
-                        style: minTextStyle,
-                      ),
-                      animatedBar(
-                        entriesBarSize,
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Text(
-                        "Abonos del mes",
-                        style: microTextStyle,
-                      ),
-                    ],
-                  )
-                ],
-              )
+              renderCharts(),
+              SizedBox(height: 35.0),
+              renderOptions()
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget renderOptions() {
+    final TextStyle titleStyle = TextStyle(
+      color: Colors.black38,
+      fontSize: 12,
+    );
+
+    final TextStyle textStyle = TextStyle(
+      color: Colors.black54,
+      fontSize: 12,
+    );
+
+    final Icon iconCopy = Icon(Icons.copy, size: 16, color: Colors.grey);
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // CLABE BUTTON
+              Container(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "CLABE",
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          width: 8.0,
+                        ),
+                        iconCopy
+                      ],
+                    ),
+                    Text("${DateTime.now().millisecondsSinceEpoch}",
+                        style: textStyle)
+                  ],
+                ),
+              ),
+              // CLABE BUTTON END
+              // CUENTA BUTTOn
+              Container(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "CUENTA",
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          width: 8.0,
+                        ),
+                        iconCopy
+                      ],
+                    ),
+                    Text(
+                      "${DateTime.now().millisecondsSinceEpoch ~/ 20}",
+                      style: textStyle,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 15.0),
+          TextButton(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(opacityFinsusColor),
+              overlayColor: MaterialStateProperty.all(opacityFinsusColor),
+            ),
+            onPressed: () {
+              print("Ver movimientos");
+            },
+            child: Text(
+              "Movimientos",
+              style: TextStyle(color: finsusColor),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget renderCurrentValue() {
+    return Container(
+      // color: Colors.indigo,
+      child: Column(
+        children: [
+          Text(
+            "Saldo actual",
+            style: microTextStyle,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                hideShowValue(available, showValues),
+                style: TextStyle(fontSize: 21.0, color: Colors.blueGrey[900]),
+                textAlign: TextAlign.center,
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.remove_red_eye_rounded,
+                  size: 18,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  setState(() {
+                    showValues = !showValues;
+                  });
+                },
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget renderCharts() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          children: [
+            Text(
+              hideShowValue(totalPayments, showValues),
+              style: minTextStyle,
+            ),
+            animatedBar(paymentsBarSize),
+            SizedBox(
+              height: 15.0,
+            ),
+            Text(
+              "Gastos del mes",
+              style: microTextStyle,
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            Text(
+              hideShowValue(totalEntries, showValues),
+              style: minTextStyle,
+            ),
+            animatedBar(
+              entriesBarSize,
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Text(
+              "Abonos del mes",
+              style: microTextStyle,
+            ),
+          ],
+        )
+      ],
+    );
+  }
 }
-
-/*
-
-  // width: MediaQuery.of(context).size.width * 0.8,
-      // padding: EdgeInsets.symmetric(
-      //     horizontal: MediaQuery.of(context).size.width * 0.1),
-      // height: 300.0,
-      // padding: EdgeInsets.symmetric(
-      // horizontal: MediaQuery.of(context).size.width * 0.1),
-
-*/
-
-/*
-
-Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Container(
-                //   // color: Colors.indigo,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         hideShowValue(available, showValues),
-                //         style: TextStyle(
-                //             fontSize: 21.0, color: Colors.blueGrey[900]),
-                //         textAlign: TextAlign.center,
-                //       ),
-                //       IconButton(
-                //         icon: Icon(
-                //           Icons.remove_red_eye_rounded,
-                //           size: 18,
-                //           color: Colors.grey,
-                //         ),
-                //         onPressed: () {
-                //           setState(() {
-                //             showValues = !showValues;
-                //           });
-                //         },
-                //       )
-                //     ],
-                //   ),
-                // ),
-                SizedBox(height: 15.0),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   crossAxisAlignment: CrossAxisAlignment.end,
-                //   children: [
-                //     Column(
-                //       children: [
-                //         Text(
-                //           hideShowValue(totalPayments, showValues),
-                //           style: minTextStyle,
-                //         ),
-                //         Text(
-                //           "Gastos del mes",
-                //           style: minTextStyle,
-                //         ),
-                //         animatedBar(paymentsBarSize)
-                //       ],
-                //     ),
-                //     Column(
-                //       children: [
-                //         Text(
-                //           hideShowValue(totalEntries, showValues),
-                //           style: minTextStyle,
-                //         ),
-                //         Text(
-                //           "Abonos del mes",
-                //           style: minTextStyle,
-                //         ),
-                //         animatedBar(
-                //           entriesBarSize,
-                //         )
-                //       ],
-                //     )
-                //   ],
-                // )
-              ], */

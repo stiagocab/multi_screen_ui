@@ -59,16 +59,16 @@ class _InvesmentsPageState extends State<InvesmentsPage> {
         child: Container(
           padding: EdgeInsets.all(10.0),
           margin: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.1),
+              horizontal: MediaQuery.of(context).size.width * 0.05),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4.0),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: Offset(0, 1), // changes position of shadow
               ),
             ],
           ),
